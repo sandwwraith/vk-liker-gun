@@ -14,12 +14,13 @@ class APIHelper:
         params['access_token'] = self.token
         params['v'] = "5.37"
         res = requests.get("https://api.vk.com/method/" + method, params=params).json()
-        if 'error' in res :
+        while 'error' in res :
             if res['error']['error_code'] == 6:
-                time.sleep(0.4)
+                time.sleep(0.42)
                 res = requests.get("https://api.vk.com/method/" + method, params=params).json()
             else:
                 print(res['error']['error_msg'])
+                break
         return res
 
     def wallGet(self, owner_id, count, offset):
@@ -101,6 +102,9 @@ class Liker:
             elif 'error' in response and response['error']['error_code'] == 9:
                 print("OMG FUCKING FLOOD CONTROL!11")
                 elements = []
+                return False
+            elif 'error' in response:
+                print('Unknown error, blya')
                 return False
             print("Liked " + str(post['id']) + ", " + str(len(elements)) + " left")
             time.sleep(random.randint(self.sleeptime, self.sleeptimemax))
