@@ -4,7 +4,7 @@ Can add likes on posts, photos and market items of users or groups.
 
 Requirements: `Python3`, `requests`
 
-1. Register your app and get your access token (more info [here](https://vk.com/dev/implicit_flow_user]))
+1. Register your app and get your access token (more info [here](https://vk.com/dev/implicit_flow_user))
 2. Put your access token in `tokenfile` file
 3. Run `./likergun.py -wp <target_id>`
 4. ?????
