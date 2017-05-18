@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 
-import requests
 import time
 import random
 import argparse
 
+import requests
 
 class APIHelper:
     def __init__(self, token):
-        self.token = token;
+        self.token = token
 
     def apiRequest(self, method, params = {}):
         params['access_token'] = self.token
         params['v'] = "5.37"
         res = requests.get("https://api.vk.com/method/" + method, params=params).json()
-        while 'error' in res :
+        while 'error' in res:
             if res['error']['error_code'] == 6:
                 time.sleep(0.42)
                 res = requests.get("https://api.vk.com/method/" + method, params=params).json()
@@ -145,16 +145,16 @@ class Liker:
 
 
 def parseargs():
-    parser = argparse.ArgumentParser(description="""Likes some user or group in vk.com. 
+    parser = argparse.ArgumentParser(description="""Likes some user or group in vk.com.
     You should place your access token in tokenfile""")
     parser.add_argument('target', metavar='TARGET_ID', help='Id which you like', type=int)
-    parser.add_argument('--tokenfile', default='tokenfile', required=False, 
+    parser.add_argument('--tokenfile', default='tokenfile', required=False,
         help='Name of file where your access token is')
     parser.add_argument('-w', '--wall', help='Like wall', action='store_true')
     parser.add_argument('-m', '--market', help='Like market (only for groups)', action='store_true')
     parser.add_argument('-p', '--photos', help='Like photos. Specify two times (-pp) to like service albums too',
          action='count')
-    group = parser.add_argument_group('Like tuning', description="""If you set small time, you like faster, 
+    group = parser.add_argument_group('Like tuning', description="""If you set small time, you like faster,
     but you can be banned with higher probability""")
     group.add_argument('--sleepmin', help='Minimum amount to sleep between likes', type=int, required=False, default=1)
     group.add_argument('--sleepmax', help='Maximum amount to sleep between likes', type=int, required=False, default=2)
